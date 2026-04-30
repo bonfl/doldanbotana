@@ -14,7 +14,7 @@ const activities = [
   {
     date: "15 JUN",
     title: "Observación astronómica abierta",
-    text: "Jornada de observación del cielo nocturno con telescopios y guía para público general.",
+    text: "Jornada de observación del cielo nocturno con telescopios y guía para público general..",
   },
   {
     date: "22 JUN",
