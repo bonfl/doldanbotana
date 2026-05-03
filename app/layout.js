@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Playfair_Display, Inter } from "next/font/google";
+import SplashWrapper from "./SplashWrapper";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -20,9 +21,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="es">
-      <body className={`${inter.variable} ${playfair.variable} font-sans`}>
-        {children}
+    <html lang="es" className="bg-[#0F2A20]">
+      <body
+        className={`${inter.variable} ${playfair.variable} font-sans bg-[#0F2A20] min-h-screen`}
+      >
+        <SplashWrapper>{children}</SplashWrapper>
       </body>
     </html>
   );

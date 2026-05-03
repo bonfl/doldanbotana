@@ -23,6 +23,34 @@ function useInView() {
 }
 
 export default function DoldanBotanaHome() {
+  useEffect(() => {
+    // Manejador suave para scroll a anchors
+    const handleAnchorClick = (e) => {
+      const href = e.currentTarget.getAttribute("href");
+      if (href?.startsWith("#")) {
+        e.preventDefault();
+        const targetId = href.slice(1);
+        const element = document.getElementById(targetId);
+        
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    };
+
+    // Agregar listener a todos los links internos
+    const links = document.querySelectorAll('a[href^="#"]');
+    links.forEach(link => {
+      link.addEventListener("click", handleAnchorClick);
+    });
+
+    return () => {
+      links.forEach(link => {
+        link.removeEventListener("click", handleAnchorClick);
+      });
+    };
+  }, []);
+
   const fade = (visible) =>
     `transition-all duration-700 ease-out ${
       visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
@@ -159,7 +187,7 @@ export default function DoldanBotanaHome() {
 
             <div className="relative overflow-hidden rounded-[2rem] border border-[#D4AF37]/20 shadow-2xl shadow-black/30 transition-all duration-500 ease-out hover:scale-[1.01]">
               <Image
-                src="/law-office.jpg"
+                src="/law-office2.jpg"
                 alt="Estudio jurídico"
                 width={900}
                 height={650}
@@ -170,15 +198,12 @@ export default function DoldanBotanaHome() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#0F2A20] via-[#0F2A20]/60 to-transparent" />
               <div className="absolute inset-0 bg-[#0F2A20]/25" />
 
-              <div className="absolute left-6 right-6 bottom-6 rounded-2xl border border-[#D4AF37]/15 bg-[#0F2A20]/75 backdrop-blur-md p-6">
-                <p className="text-xs tracking-[0.28em] uppercase text-[#D4AF37]">
-                  Doldan Botana
-                </p>
-
-                <p className="mt-3 font-serif text-xl leading-snug">
-                  Soluciones jurídicas y notariales con enfoque integral.
-                </p>
-              </div>
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+  <p className="text-xs text-[#D4AF37]/80">Doldan Botana</p>
+  <p className="text-lg text-[#F5F2E9]">
+    Soluciones jurídicas y notariales con enfoque integral.
+  </p>
+</div>
             </div>
           </div>
         </div>
@@ -195,7 +220,7 @@ export default function DoldanBotanaHome() {
 
         <div className="grid md:grid-cols-2 gap-10">
           <div className="transition-all duration-500 ease-out hover:-translate-y-1">
-            <h3 className="font-serif text-2xl font-medium">Laura Doldan</h3>
+            <h3 className="font-serif text-2xl font-medium">Laura Botana</h3>
             <p className="text-[#D4AF37] mt-1">Abogada</p>
             <p className="mt-4 text-[#CFC7B5] leading-relaxed">
               Asesoramiento jurídico con enfoque claro y cercano.
@@ -203,7 +228,7 @@ export default function DoldanBotanaHome() {
           </div>
 
           <div className="transition-all duration-500 ease-out hover:-translate-y-1">
-            <h3 className="font-serif text-2xl font-medium">Ana Botana</h3>
+            <h3 className="font-serif text-2xl font-medium">Ana Doldán</h3>
             <p className="text-[#D4AF37] mt-1">Escribana</p>
             <p className="mt-4 text-[#CFC7B5] leading-relaxed">
               Seguridad jurídica en actos y documentación.
