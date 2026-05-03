@@ -11,7 +11,7 @@ export default function SplashWrapper({ children }) {
     const timer = setTimeout(() => {
       setLoading(false);
       setTimeout(() => setHideSplash(true), 600); // espera a que termine fade
-    }, 900);
+    }, 1500);
 
     return () => clearTimeout(timer);
   }, []);
