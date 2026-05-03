@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { news } from "@/data/news";
+import { activities } from "@/data/activities";
 import {
   CalendarDays,
   Newspaper,
@@ -10,33 +11,17 @@ import {
   MapPin,
 } from "lucide-react";
 
-const activities = [
-  {
-    date: "15 JUN",
-    title: "Observación astronómica abierta",
-    text: "Jornada de observación del cielo nocturno con telescopios y guía para público general....!!",
-  },
-  {
-    date: "22 JUN",
-    title: "Charla: Uruguay y la actividad aeroespacial",
-    text: "Un encuentro para acercar la astronomía, la ciencia y la exploración espacial a la comunidad.",
-  },
-  {
-    date: "05 JUL",
-    title: "Taller introductorio de astronomía",
-    text: "Conceptos básicos para quienes quieren comenzar a mirar el cielo con otros ojos.",
-  },
-];
+
 
 export default function CIDAEHome() {
   return (
-    <main className="min-h-screen bg-[#070B14] text-slate-100 font-sans overflow-hidden">
-      <div className="fixed inset-0 pointer-events-none opacity-40">
+    <main className="min-h-screen bg-[#070B14] text-slate-100 font-sans">
+      <div className="fixed inset-0 pointer-events-none opacity-40 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(58,143,193,0.25),transparent_28%),radial-gradient(circle_at_80%_10%,rgba(96,165,250,0.18),transparent_30%),linear-gradient(180deg,#070B14_0%,#0B0F1A_55%,#05070D_100%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.16)_1px,transparent_1px)] [background-size:38px_38px] opacity-20" />
       </div>
 
-      <header className="relative z-10 border-b border-white/10 backdrop-blur-md bg-[#070B14]/70">
+      <header className="sticky top-0 z-50 border-b border-white/10 backdrop-blur-md bg-[#070B14]/85 shadow-md shadow-black/20">
         <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="h-11 w-11 rounded-xl border border-[#3A8FC1]/40 bg-[#0B1220] flex items-center justify-center overflow-hidden shadow-lg shadow-[#3A8FC1]/10">
@@ -59,6 +44,7 @@ export default function CIDAEHome() {
 
           <nav className="hidden md:flex items-center gap-8 text-sm text-slate-300">
             <a href="#sobre" className="hover:text-white">Sobre CIDA-E</a>
+            <a href="#historia" className="hover:text-white">Historia</a>
             <a href="#actividades" className="hover:text-white">Actividades</a>
             <a href="#noticias" className="hover:text-white">Noticias</a>
             <a href="#contacto" className="hover:text-white">Contacto</a>
@@ -71,10 +57,10 @@ export default function CIDAEHome() {
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-[#3A8FC1]/30 bg-[#3A8FC1]/10 px-4 py-2 text-sm text-[#93C5FD] mb-7">
               <span className="h-2 w-2 rounded-full bg-[#60A5FA]" />
-              Centro de Investigación y Difusión de Astronomía
+              Centro de Investigación y Difusión Aeronáutico-Espacial
             </div>
 
-            <h1 className="text-5xl md:text-7xl font-black tracking-tight leading-[0.95] max-w-4xl">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[0.95] max-w-4xl">
               Un espacio para mirar más lejos desde Uruguay.
             </h1>
 
@@ -94,54 +80,144 @@ export default function CIDAEHome() {
           </div>
 
           <div className="relative">
-            <div className="aspect-[4/3] rounded-[2rem] border border-white/10 bg-[#0B1220] shadow-2xl shadow-black/40 overflow-hidden">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_55%_35%,rgba(96,165,250,0.28),transparent_28%),linear-gradient(135deg,rgba(58,143,193,0.18),transparent_45%)]" />
-              <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.24)_1px,transparent_1px)] [background-size:30px_30px] opacity-25" />
-              <div className="relative h-full flex items-center justify-center p-10 text-center">
-                <div>
-                  <Telescope className="mx-auto h-20 w-20 text-[#60A5FA] mb-6" />
-                  <p className="text-2xl font-bold">Observación · Ciencia · Comunidad</p>
-                  <p className="mt-3 text-slate-400 max-w-sm">
-                    Un sitio institucional para comunicar actividades, noticias y contenidos astronómicos.
-                  </p>
-                </div>
-              </div>
+          <div className="relative aspect-[3/2] rounded-[2rem] border border-white/10 shadow-2xl shadow-black/40 overflow-hidden bg-[#0B1220]">
+
+            {/* IMAGEN REAL */}
+            <Image
+                src="/stars3.jpg"
+                alt="Cielo nocturno estrellado"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover object-[center_20%] scale-105"
+                
+                priority
+              />  
+
+            {/* OVERLAY OSCURO (CLAVE) */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#070B14] via-[#070B14]/60 to-[#070B14]/10" />
+            <div className="absolute inset-0 bg-[#0B1220]/30" />
+
+            {/* CONTENIDO */}
+            <div className="absolute bottom-0 left-0 right-0 p-8">
+              <p className="text-xs md:text-sm font-semibold tracking-[0.18em] text-[#93C5FD] uppercase">
+                Observación · Ciencia · Comunidad
+              </p>
+
+              <h3 className="mt-3 text-2xl md:text-3xl font-black text-white leading-tight">
+                Astronomía y actividad aeroespacial desde Uruguay
+              </h3>
+
+              <p className="mt-3 text-slate-300 max-w-md leading-relaxed">
+                Un espacio institucional para comunicar actividades, noticias y contenidos vinculados al estudio del cielo y el espacio.
+              </p>
             </div>
+
           </div>
+        </div>
         </div>
       </section>
 
-      <section id="sobre" className="relative z-10 mx-auto max-w-7xl px-6 py-16">
-        <h2 className="text-3xl font-bold">Sobre CIDA-E</h2>
-      </section>
+      <section id="sobre" className="relative z-10 mx-auto max-w-7xl px-6 py-16 scroll-mt-24">
+  <h2 className="text-3xl font-bold mb-6">Sobre CIDA-E</h2>
 
-      <section id="actividades" className="relative z-10 mx-auto max-w-7xl px-6 py-16">
+  <div className="rounded-2xl bg-[#0B1220] border border-white/10 p-6 text-slate-300 leading-relaxed">
+    <p>
+      El Centro de Investigación y Difusión Aeronáutico-Espacial (CIDA-E) es una institución uruguaya dedicada a la investigación y promoción del estudio de los temas aeronáuticos y espaciales.
+    </p>
+
+    <h3 className="mt-6 text-xl font-bold text-white">Objetivos</h3>
+
+    <ul className="mt-4 list-disc list-inside space-y-2">
+      <li>Estudiar y promover el estudio de las cuestiones aeronáuticas y espaciales.</li>
+      <li>Difundir los resultados de sus investigaciones y estudios.</li>
+      <li>Asesorar y colaborar con la Fuerza Aérea Uruguaya, la autoridad de Aviación Civil y otras organizaciones públicas y privadas relacionadas con temas aeroespaciales.</li>
+    </ul>
+  </div>
+</section>
+
+      <section id="historia" className="relative z-10 mx-auto max-w-7xl px-6 py-20 scroll-mt-24">
+  <h2 className="text-3xl font-bold mb-12">Historia</h2>
+
+  <div className="relative border-l border-white/10 pl-8 space-y-12">
+
+    {/* ITEM */}
+    <div className="relative">
+      <div className="absolute -left-[14px] top-1 w-3 h-3 bg-[#60A5FA] rounded-full shadow-md shadow-[#60A5FA]/40" />
+      <p className="text-sm text-[#60A5FA] font-semibold">1975</p>
+      <h3 className="text-xl font-bold mt-1">Fundación del CIDA-E</h3>
+      <p className="mt-2 text-slate-400 leading-relaxed">
+        Fue fundado bajo el Decreto N.º 607/975 con el objetivo de estudiar y promover las cuestiones aeronáuticas y espaciales, posicionando a Uruguay en el ámbito internacional.
+      </p>
+    </div>
+
+    {/* ITEM */}
+    <div className="relative">
+      <div className="absolute -left-[14px] top-1 w-3 h-3 bg-[#60A5FA] rounded-full shadow-md shadow-[#60A5FA]/40" />
+      <p className="text-sm text-[#60A5FA] font-semibold">1996</p>
+      <h3 className="text-xl font-bold mt-1">Conferencia Espacial de las Américas</h3>
+      <p className="mt-2 text-slate-400 leading-relaxed">
+        El CIDA-E organizó y participó en la III Conferencia Espacial de las Américas en Punta del Este, consolidando su rol en la región.
+      </p>
+    </div>
+
+    {/* ITEM */}
+    <div className="relative">
+      <div className="absolute -left-[14px] top-1 w-3 h-3 bg-[#60A5FA] rounded-full shadow-md shadow-[#60A5FA]/40" />
+      <p className="text-sm text-[#60A5FA] font-semibold">2002</p>
+      <h3 className="text-xl font-bold mt-1">Integración institucional</h3>
+      <p className="mt-2 text-slate-400 leading-relaxed">
+        El organismo pasó a depender de la Dirección Nacional de Aviación Civil e Infraestructura Aeronáutica, convirtiéndose en órgano asesor del Poder Ejecutivo.
+      </p>
+    </div>
+
+    {/* ITEM */}
+    <div className="relative">
+      <div className="absolute -left-[14px] top-1 w-3 h-3 bg-[#60A5FA] rounded-full shadow-md shadow-[#60A5FA]/40" />
+      <p className="text-sm text-[#60A5FA] font-semibold">Actualidad</p>
+      <h3 className="text-xl font-bold mt-1">Desarrollo y proyección</h3>
+      <p className="mt-2 text-slate-400 leading-relaxed">
+        El CIDA-E continúa desarrollando investigación, publicaciones y actividades académicas, manteniendo vínculos con organizaciones internacionales como IAF, IISL y OACI.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+      <section id="actividades" className="relative z-10 mx-auto max-w-7xl px-6 py-16 scroll-mt-24">
         <h2 className="text-3xl font-bold mb-6">Próximas actividades</h2>
         <div className="grid md:grid-cols-3 gap-5">
           {activities.map((item) => (
-            <div key={item.title} className="p-6 bg-[#0B1220] rounded-2xl">
-              <p>{item.date}</p>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
-            </div>
-          ))}
+          <a
+            key={item.slug}
+            href={`/actividades/${item.slug}`}
+            className="p-6 bg-[#0B1220] rounded-2xl border border-white/10 hover:border-[#3A8FC1]/60 hover:bg-[#111827] transition block"
+          >
+            <p className="text-sm text-[#60A5FA] font-semibold">{item.date}</p>
+            <h3 className="mt-3 text-xl font-bold">{item.title}</h3>
+            <p className="mt-3 text-slate-400">{item.text}</p>
+          </a>
+        ))}
         </div>
       </section>
 
-      <section id="noticias" className="relative z-10 mx-auto max-w-7xl px-6 py-16">
+      <section id="noticias" className="relative z-10 mx-auto max-w-7xl px-6 py-16 scroll-mt-24">
         <h2 className="text-3xl font-bold mb-6">Noticias</h2>
         <div className="grid md:grid-cols-3 gap-5">
           {news.map((item) => (
-            <div key={item.title} className="p-6 bg-[#0B1220] rounded-2xl">
-              <p>{item.tag}</p>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
-            </div>
+            <a
+  key={item.title}
+  href={`/noticias/${item.slug}`}
+  className="p-6 bg-[#0B1220] rounded-2xl border border-white/10 hover:border-[#3A8FC1]/60 hover:bg-[#111827] transition block"
+>
+  <p className="text-sm text-[#60A5FA] font-semibold">{item.tag}</p>
+  <h3 className="mt-3 text-xl font-bold">{item.title}</h3>
+  <p className="mt-3 text-slate-400">{item.text}</p>
+</a>
           ))}
         </div>
       </section>
 
-      <section id="contacto" className="relative z-10 mx-auto max-w-7xl px-6 py-16">
+      <section id="contacto" className="relative z-10 mx-auto max-w-7xl px-6 py-16 scroll-mt-24">
         <p>contacto@cidae.uy</p>
       </section>
     <footer className="relative z-10 border-t border-white/10 px-6 py-10 text-center text-sm text-slate-500 mt-20">
