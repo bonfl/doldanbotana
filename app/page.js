@@ -400,19 +400,20 @@ export default function DoldanBotanaHome() {
     </div>
 
     {/* MAPA */}
-    <div className="rounded-[2rem] overflow-hidden border border-[#D4AF37]/15 shadow-2xl shadow-black/20">
+    <div className="relative rounded-[2rem] overflow-hidden border border-[#D4AF37]/15 shadow-2xl shadow-black/20">
 
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d972.7767427634797!2d-56.19161728716588!3d-34.90600021801366!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x959f81cd53e1a5c1%3A0x3b518fa04dec32f5!2soficina%20315%2C%20Dr.%20Enrique%20Tarigo%201335%2C%2011100%20Montevideo%2C%20Departamento%20de%20Montevideo!5e0!3m2!1ses!2suy!4v1777781371140!5m2!1ses!2suy"
-        width="100%"
-        height="420"
-        style={{ border: 0 }}
-        allowFullScreen=""
-        loading="lazy"
-        referrerPolicy="no-referrer-when-downgrade"
-      />
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d972.7767427634797!2d-56.19161728716588!3d-34.90600021801366!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x959f81cd53e1a5c1%3A0x3b518fa04dec32f5!2soficina%20315%2C%20Dr.%20Enrique%20Tarigo%201335%2C%2011100%20Montevideo%2C%20Departamento%20de%20Montevideo!5e0!3m2!1ses!2suy!4v1777781371140!5m2!1ses!2suy"
+    width="100%"
+    height="420"
+    style={{ border: 0 }}
+    loading="lazy"
+  />
 
-    </div>
+  {/* overlay dorado sutil */}
+  <div className="pointer-events-none absolute inset-0 bg-[#D4AF37]/90 mix-blend-overlay" />
+
+</div>
 
   </div>
 
