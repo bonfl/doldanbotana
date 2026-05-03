@@ -1,245 +1,401 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { news } from "@/data/news";
-import { activities } from "@/data/activities";
-import {
-  CalendarDays,
-  Newspaper,
-  Telescope,
-  Mail,
-  ArrowRight,
-  MapPin,
-} from "lucide-react";
 
+function useInView() {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setVisible(true);
+      },
+      { threshold: 0.12 }
+    );
 
-export default function CIDAEHome() {
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return [ref, visible];
+}
+
+export default function DoldanBotanaHome() {
+  const fade = (visible) =>
+    `transition-all duration-700 ease-out ${
+      visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+    }`;
+
+  const [heroRef, heroVisible] = useInView();
+  const [quienesRef, quienesVisible] = useInView();
+  const [hacemosRef, hacemosVisible] = useInView();
+  const [elegirnosRef, elegirnosVisible] = useInView();
+  const [contactoRef, contactoVisible] = useInView();
+
+  const serviciosJuridicos = [
+    "Derecho civil",
+    "Derecho de familia",
+    "Sucesiones",
+    "Contratos",
+    "Asesoramiento laboral",
+    "Asesoramiento a empresas",
+  ];
+
+  const serviciosNotariales = [
+    "Compraventa de bienes",
+    "Hipotecas",
+    "Cesiones",
+    "Poderes",
+    "Certificados",
+    "Actas notariales",
+    "Reglamento de copropiedad",
+    "Sucesiones",
+    "Constitución de sociedades comerciales",
+    "Comunicaciones al BCU",
+  ];
+
   return (
-    <main className="min-h-screen bg-[#070B14] text-slate-100 font-sans">
-      <div className="fixed inset-0 pointer-events-none opacity-40 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(58,143,193,0.25),transparent_28%),radial-gradient(circle_at_80%_10%,rgba(96,165,250,0.18),transparent_30%),linear-gradient(180deg,#070B14_0%,#0B0F1A_55%,#05070D_100%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.16)_1px,transparent_1px)] [background-size:38px_38px] opacity-20" />
+    <main className="min-h-screen bg-[#0F2A20] text-[#F5F2E9] font-sans">
+      <div className="fixed inset-0 pointer-events-none -z-10">
+        <div className="absolute inset-0 bg-[#0F2A20]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(212,175,55,0.08),transparent_30%),radial-gradient(circle_at_80%_10%,rgba(212,175,55,0.05),transparent_30%)]" />
       </div>
 
-      <header className="sticky top-0 z-50 border-b border-white/10 backdrop-blur-md bg-[#070B14]/85 shadow-md shadow-black/20">
-        <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="h-11 w-11 rounded-xl border border-[#3A8FC1]/40 bg-[#0B1220] flex items-center justify-center overflow-hidden shadow-lg shadow-[#3A8FC1]/10">
-              <Image
-                src="/logo.png"
-                alt="CIDA-E"
-                width={36}
-                height={36}
-                className="object-contain"
-              />
-            </div>
+      <header className="sticky top-0 z-50 backdrop-blur-md bg-[#0F2A20]/90">
+        <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between relative">
+          <div className="absolute bottom-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent" />
+
+          <a href="/" className="flex items-center gap-3 group">
+            <Image src="/logo.png" alt="Doldan Botana" width={40} height={40} />
 
             <div>
-              <p className="font-semibold tracking-[0.22em] text-sm text-white">
-                CIDA-E
+              <p className="font-semibold tracking-[0.18em] text-sm text-[#F5F2E9] group-hover:text-[#D4AF37] transition-colors duration-300">
+                DOLDAN BOTANA
               </p>
-              <p className="text-xs text-slate-400">Astronomía · Uruguay</p>
+              <p className="text-xs text-[#CFC7B5]">
+                Estudio jurídico y notarial
+              </p>
             </div>
-          </div>
+          </a>
 
-          <nav className="hidden md:flex items-center gap-8 text-sm text-slate-300">
-            <a href="#sobre" className="hover:text-white">Sobre CIDA-E</a>
-            <a href="#historia" className="hover:text-white">Historia</a>
-            <a href="#actividades" className="hover:text-white">Actividades</a>
-            <a href="#noticias" className="hover:text-white">Noticias</a>
-            <a href="#contacto" className="hover:text-white">Contacto</a>
+          <nav className="hidden md:flex items-center gap-8 text-sm text-[#CFC7B5]">
+            {[
+              ["#quienes", "Quiénes somos"],
+              ["#hacemos", "Qué hacemos"],
+              ["#elegirnos", "Por qué elegirnos"],
+              ["#contacto", "Contacto"],
+            ].map(([href, label]) => (
+              <a
+                key={href}
+                href={href}
+                className="relative group transition-all duration-300"
+              >
+                <span className="group-hover:text-[#F5F2E9] transition-colors duration-300">
+                  {label}
+                </span>
+                <span className="absolute left-0 -bottom-1 h-[1px] w-0 bg-[#D4AF37] transition-all duration-300 group-hover:w-full" />
+              </a>
+            ))}
           </nav>
         </div>
       </header>
 
-      <section className="relative z-10 mx-auto max-w-7xl px-6 pt-20 pb-24">
-        <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-12 items-center">
-          <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#3A8FC1]/30 bg-[#3A8FC1]/10 px-4 py-2 text-sm text-[#93C5FD] mb-7">
-              <span className="h-2 w-2 rounded-full bg-[#60A5FA]" />
-              Centro de Investigación y Difusión Aeronáutico-Espacial
+      <section
+        ref={heroRef}
+        className={`mx-auto max-w-7xl px-6 pt-28 pb-32 ${fade(heroVisible)}`}
+      >
+        <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-16 items-center">
+          <div className="relative z-10">
+            <div className="mb-8 flex items-center gap-4">
+              <div className="h-[1px] w-12 bg-[#D4AF37]" />
+              <p className="text-xs tracking-[0.32em] uppercase text-[#D4AF37]">
+                Estudio jurídico y notarial
+              </p>
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[0.95] max-w-4xl">
-              Un espacio para mirar más lejos desde Uruguay.
+            <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[0.98] font-medium tracking-tight max-w-3xl">
+              Respaldo legal para decisiones importantes.
             </h1>
 
-            <p className="mt-7 text-lg md:text-xl text-slate-300 max-w-2xl leading-relaxed">
-              CIDA-E promueve la investigación, la divulgación y el acercamiento
-              de la astronomía y la actividad aeroespacial a la sociedad.
+            <p className="mt-8 text-lg md:text-xl text-[#CFC7B5] max-w-xl leading-relaxed">
+              Acompañamos procesos legales y notariales con precisión técnica,
+              claridad en cada etapa y un enfoque cercano en cada caso.
             </p>
 
-            <div className="mt-9 flex flex-col sm:flex-row gap-4">
-              <a href="#actividades" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#3A8FC1] px-6 py-3 font-semibold text-white shadow-xl shadow-[#3A8FC1]/20 hover:bg-[#2F7EAD] transition">
-                Ver actividades <ArrowRight className="h-4 w-4" />
+            <div className="mt-10 flex flex-col sm:flex-row gap-4">
+              <a
+                href="#contacto"
+                className="bg-[#D4AF37] text-[#0F2A20] px-7 py-3.5 rounded-full font-medium text-center transition-all duration-400 ease-out hover:bg-[#E6C766] hover:-translate-y-[1px] hover:shadow-lg hover:shadow-[#D4AF37]/20"
+              >
+                Coordinar consulta
               </a>
-              <a href="#contacto" className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/15 px-6 py-3 font-semibold text-slate-100 hover:bg-white/5 transition">
-                Contactar
+
+              <a
+                href="#hacemos"
+                className="border border-[#D4AF37]/30 px-7 py-3.5 rounded-full text-[#D4AF37] text-center transition-all duration-400 ease-out hover:border-[#D4AF37]/60 hover:bg-[#D4AF37]/10"
+              >
+                Ver servicios
               </a>
+            </div>
+
+            <div className="mt-14 grid grid-cols-3 gap-6 max-w-lg border-t border-[#D4AF37]/15 pt-6">
+              {[
+                ["01", "Atención personalizada"],
+                ["02", "Claridad técnica"],
+                ["03", "Confidencialidad"],
+              ].map(([n, t]) => (
+                <div key={n}>
+                  <p className="font-serif text-2xl text-[#D4AF37]">{n}</p>
+                  <p className="mt-2 text-sm text-[#CFC7B5]">{t}</p>
+                </div>
+              ))}
             </div>
           </div>
 
           <div className="relative">
-          <div className="relative aspect-[3/2] rounded-[2rem] border border-white/10 shadow-2xl shadow-black/40 overflow-hidden bg-[#0B1220]">
+            <div className="absolute -inset-4 rounded-[2rem] border border-[#D4AF37]/10" />
 
-            {/* IMAGEN REAL */}
-            <Image
-                src="/stars3.jpg"
-                alt="Cielo nocturno estrellado"
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover object-[center_20%] scale-105"
-                
+            <div className="relative overflow-hidden rounded-[2rem] border border-[#D4AF37]/20 shadow-2xl shadow-black/30 transition-all duration-500 ease-out hover:scale-[1.01]">
+              <Image
+                src="/law-office.jpg"
+                alt="Estudio jurídico"
+                width={900}
+                height={650}
+                className="h-[520px] w-full object-cover"
                 priority
-              />  
+              />
 
-            {/* OVERLAY OSCURO (CLAVE) */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#070B14] via-[#070B14]/60 to-[#070B14]/10" />
-            <div className="absolute inset-0 bg-[#0B1220]/30" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F2A20] via-[#0F2A20]/60 to-transparent" />
+              <div className="absolute inset-0 bg-[#0F2A20]/25" />
 
-            {/* CONTENIDO */}
-            <div className="absolute bottom-0 left-0 right-0 p-8">
-              <p className="text-xs md:text-sm font-semibold tracking-[0.18em] text-[#93C5FD] uppercase">
-                Observación · Ciencia · Comunidad
-              </p>
+              <div className="absolute left-6 right-6 bottom-6 rounded-2xl border border-[#D4AF37]/15 bg-[#0F2A20]/75 backdrop-blur-md p-6">
+                <p className="text-xs tracking-[0.28em] uppercase text-[#D4AF37]">
+                  Doldan Botana
+                </p>
 
-              <h3 className="mt-3 text-2xl md:text-3xl font-black text-white leading-tight">
-                Astronomía y actividad aeroespacial desde Uruguay
-              </h3>
-
-              <p className="mt-3 text-slate-300 max-w-md leading-relaxed">
-                Un espacio institucional para comunicar actividades, noticias y contenidos vinculados al estudio del cielo y el espacio.
-              </p>
+                <p className="mt-3 font-serif text-xl leading-snug">
+                  Soluciones jurídicas y notariales con enfoque integral.
+                </p>
+              </div>
             </div>
-
           </div>
         </div>
+      </section>
+
+      <section
+        ref={quienesRef}
+        id="quienes"
+        className={`max-w-7xl mx-auto px-6 py-24 scroll-mt-24 ${fade(quienesVisible)}`}
+      >
+        <h2 className="font-serif text-3xl md:text-4xl font-medium mb-12">
+          Quiénes somos
+        </h2>
+
+        <div className="grid md:grid-cols-2 gap-10">
+          <div className="transition-all duration-500 ease-out hover:-translate-y-1">
+            <h3 className="font-serif text-2xl font-medium">Laura Doldan</h3>
+            <p className="text-[#D4AF37] mt-1">Abogada</p>
+            <p className="mt-4 text-[#CFC7B5] leading-relaxed">
+              Asesoramiento jurídico con enfoque claro y cercano.
+            </p>
+          </div>
+
+          <div className="transition-all duration-500 ease-out hover:-translate-y-1">
+            <h3 className="font-serif text-2xl font-medium">Ana Botana</h3>
+            <p className="text-[#D4AF37] mt-1">Escribana</p>
+            <p className="mt-4 text-[#CFC7B5] leading-relaxed">
+              Seguridad jurídica en actos y documentación.
+            </p>
+          </div>
         </div>
       </section>
 
-      <section id="sobre" className="relative z-10 mx-auto max-w-7xl px-6 py-16 scroll-mt-24">
-  <h2 className="text-3xl font-bold mb-6">Sobre CIDA-E</h2>
-
-  <div className="rounded-2xl bg-[#0B1220] border border-white/10 p-6 text-slate-300 leading-relaxed">
-    <p>
-      El Centro de Investigación y Difusión Aeronáutico-Espacial (CIDA-E) es una institución uruguaya dedicada a la investigación y promoción del estudio de los temas aeronáuticos y espaciales.
-    </p>
-
-    <h3 className="mt-6 text-xl font-bold text-white">Objetivos</h3>
-
-    <ul className="mt-4 list-disc list-inside space-y-2">
-      <li>Estudiar y promover el estudio de las cuestiones aeronáuticas y espaciales.</li>
-      <li>Difundir los resultados de sus investigaciones y estudios.</li>
-      <li>Asesorar y colaborar con la Fuerza Aérea Uruguaya, la autoridad de Aviación Civil y otras organizaciones públicas y privadas relacionadas con temas aeroespaciales.</li>
-    </ul>
-  </div>
-</section>
-
-      <section id="historia" className="relative z-10 mx-auto max-w-7xl px-6 py-20 scroll-mt-24">
-  <h2 className="text-3xl font-bold mb-12">Historia</h2>
-
-  <div className="relative border-l border-white/10 pl-8 space-y-12">
-
-    {/* ITEM */}
-    <div className="relative">
-      <div className="absolute -left-[14px] top-1 w-3 h-3 bg-[#60A5FA] rounded-full shadow-md shadow-[#60A5FA]/40" />
-      <p className="text-sm text-[#60A5FA] font-semibold">1975</p>
-      <h3 className="text-xl font-bold mt-1">Fundación del CIDA-E</h3>
-      <p className="mt-2 text-slate-400 leading-relaxed">
-        Fue fundado bajo el Decreto N.º 607/975 con el objetivo de estudiar y promover las cuestiones aeronáuticas y espaciales, posicionando a Uruguay en el ámbito internacional.
-      </p>
-    </div>
-
-    {/* ITEM */}
-    <div className="relative">
-      <div className="absolute -left-[14px] top-1 w-3 h-3 bg-[#60A5FA] rounded-full shadow-md shadow-[#60A5FA]/40" />
-      <p className="text-sm text-[#60A5FA] font-semibold">1996</p>
-      <h3 className="text-xl font-bold mt-1">Conferencia Espacial de las Américas</h3>
-      <p className="mt-2 text-slate-400 leading-relaxed">
-        El CIDA-E organizó y participó en la III Conferencia Espacial de las Américas en Punta del Este, consolidando su rol en la región.
-      </p>
-    </div>
-
-    {/* ITEM */}
-    <div className="relative">
-      <div className="absolute -left-[14px] top-1 w-3 h-3 bg-[#60A5FA] rounded-full shadow-md shadow-[#60A5FA]/40" />
-      <p className="text-sm text-[#60A5FA] font-semibold">2002</p>
-      <h3 className="text-xl font-bold mt-1">Integración institucional</h3>
-      <p className="mt-2 text-slate-400 leading-relaxed">
-        El organismo pasó a depender de la Dirección Nacional de Aviación Civil e Infraestructura Aeronáutica, convirtiéndose en órgano asesor del Poder Ejecutivo.
-      </p>
-    </div>
-
-    {/* ITEM */}
-    <div className="relative">
-      <div className="absolute -left-[14px] top-1 w-3 h-3 bg-[#60A5FA] rounded-full shadow-md shadow-[#60A5FA]/40" />
-      <p className="text-sm text-[#60A5FA] font-semibold">Actualidad</p>
-      <h3 className="text-xl font-bold mt-1">Desarrollo y proyección</h3>
-      <p className="mt-2 text-slate-400 leading-relaxed">
-        El CIDA-E continúa desarrollando investigación, publicaciones y actividades académicas, manteniendo vínculos con organizaciones internacionales como IAF, IISL y OACI.
-      </p>
-    </div>
-
-  </div>
-</section>
-
-      <section id="actividades" className="relative z-10 mx-auto max-w-7xl px-6 py-16 scroll-mt-24">
-        <h2 className="text-3xl font-bold mb-6">Próximas actividades</h2>
-        <div className="grid md:grid-cols-3 gap-5">
-          {activities.map((item) => (
-          <a
-            key={item.slug}
-            href={`/actividades/${item.slug}`}
-            className="p-6 bg-[#0B1220] rounded-2xl border border-white/10 hover:border-[#3A8FC1]/60 hover:bg-[#111827] transition block"
-          >
-            <p className="text-sm text-[#60A5FA] font-semibold">{item.date}</p>
-            <h3 className="mt-3 text-xl font-bold">{item.title}</h3>
-            <p className="mt-3 text-slate-400">{item.text}</p>
-          </a>
-        ))}
-        </div>
-      </section>
-
-      <section id="noticias" className="relative z-10 mx-auto max-w-7xl px-6 py-16 scroll-mt-24">
-        <h2 className="text-3xl font-bold mb-6">Noticias</h2>
-        <div className="grid md:grid-cols-3 gap-5">
-          {news.map((item) => (
-            <a
-  key={item.title}
-  href={`/noticias/${item.slug}`}
-  className="p-6 bg-[#0B1220] rounded-2xl border border-white/10 hover:border-[#3A8FC1]/60 hover:bg-[#111827] transition block"
+      <section
+  ref={hacemosRef}
+  id="hacemos"
+  className={`max-w-7xl mx-auto px-6 py-24 scroll-mt-24 ${fade(hacemosVisible)}`}
 >
-  <p className="text-sm text-[#60A5FA] font-semibold">{item.tag}</p>
-  <h3 className="mt-3 text-xl font-bold">{item.title}</h3>
-  <p className="mt-3 text-slate-400">{item.text}</p>
-</a>
-          ))}
+
+  <h2 className="font-serif text-3xl md:text-4xl font-medium mb-14">
+    Qué hacemos
+  </h2>
+
+  <div className="grid lg:grid-cols-2 gap-8">
+
+    {/* JURÍDICO */}
+    <div className="rounded-[2rem] bg-[#D4AF37] text-[#0F2A20] p-8
+    transition-all duration-500 ease-out
+    hover:bg-[#E6C766] hover:-translate-y-1 hover:shadow-xl">
+
+      <h3 className="font-serif text-2xl mb-6">
+        Área Jurídica
+      </h3>
+
+      <div className="grid sm:grid-cols-2 gap-3">
+        {serviciosJuridicos.map((item) => (
+          <div
+            key={item}
+            className="bg-[#0F2A20] text-[#F5F2E9] border border-[#D4AF37]/30
+            rounded-xl p-4 text-sm
+            transition-all duration-300 ease-out
+            hover:bg-[#122F25] hover:border-[#D4AF37] hover:-translate-y-[2px]"
+          >
+            {item}
+          </div>
+        ))}
+      </div>
+
+    </div>
+
+    {/* NOTARIAL */}
+    <div className="rounded-[2rem] bg-[#D4AF37] text-[#0F2A20] p-8
+    transition-all duration-500 ease-out
+    hover:bg-[#E6C766] hover:-translate-y-1 hover:shadow-xl">
+
+      <h3 className="font-serif text-2xl mb-6">
+        Área Notarial
+      </h3>
+
+      <div className="grid sm:grid-cols-2 gap-3">
+        {serviciosNotariales.map((item) => (
+          <div
+            key={item}
+            className="bg-[#0F2A20] text-[#F5F2E9] border border-[#D4AF37]/30
+            rounded-xl p-4 text-sm
+            transition-all duration-300 ease-out
+            hover:bg-[#122F25] hover:border-[#D4AF37] hover:-translate-y-[2px]"
+          >
+            {item}
+          </div>
+        ))}
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+      <section
+  ref={elegirnosRef}
+  id="elegirnos"
+  className={`max-w-7xl mx-auto px-6 py-24 scroll-mt-24 ${fade(elegirnosVisible)}`}
+>
+
+  <h2 className="font-serif text-3xl md:text-4xl font-medium mb-14">
+    Por qué elegirnos
+  </h2>
+
+  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+    {[
+      "Atención personalizada",
+      "Claridad",
+      "Confidencialidad",
+      "Enfoque integral"
+    ].map((t, i) => (
+      <div
+        key={i}
+        className="p-6 rounded-2xl bg-[#D4AF37] text-[#0F2A20]
+        transition-all duration-500 ease-out
+        hover:bg-[#E6C766] hover:-translate-y-1 hover:shadow-xl"
+      >
+        <h3 className="font-serif text-lg mb-3">
+          {t}
+        </h3>
+      </div>
+    ))}
+  </div>
+
+</section>
+
+      <section
+  ref={contactoRef}
+  id="contacto"
+  className={`max-w-7xl mx-auto px-6 py-24 scroll-mt-24 ${fade(contactoVisible)}`}
+>
+
+  <h2 className="font-serif text-3xl md:text-4xl font-medium mb-14">
+    Contacto
+  </h2>
+
+  <div className="grid lg:grid-cols-2 gap-10 items-center">
+
+    {/* INFO */}
+    <div className="space-y-6">
+
+      <p className="text-[#CFC7B5] text-lg leading-relaxed max-w-md">
+        Estamos disponibles para asesorarte en temas jurídicos y notariales.
+        Coordiná una consulta o acercate a nuestra oficina.
+      </p>
+
+      <div className="space-y-4 text-sm">
+
+        <div>
+          <p className="text-[#D4AF37] mb-1">Dirección</p>
+          <p className="text-[#F5F2E9]">
+            Dr. Enrique Tarigo 1335, oficina 315<br />
+            Montevideo, Uruguay
+          </p>
         </div>
-      </section>
 
-      <section id="contacto" className="relative z-10 mx-auto max-w-7xl px-6 py-16 scroll-mt-24">
-        <p>contacto@cidae.uy</p>
-      </section>
-    <footer className="relative z-10 border-t border-white/10 px-6 py-10 text-center text-sm text-slate-500 mt-20">
+        <div>
+          <p className="text-[#D4AF37] mb-1">Email</p>
+          <p className="text-[#F5F2E9]">
+            dra.laurabotana@gmail.com
+          </p>
+        </div>
 
-  <div className="flex flex-col items-center gap-4">
+      </div>
 
-    <Image
-      src="/logo.png"
-      alt="CIDA-E"
-      width={150}
-      height={170}
-      className="object-contain opacity-90"
-    />
+      <div className="flex flex-col sm:flex-row gap-4 pt-4">
 
-    <p>
-      © {new Date().getFullYear()} CIDA-E · Centro de Investigación y Difusión de Astronomía
-    </p>
+        <a
+          href="https://wa.me/598091457941"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-[#D4AF37] text-[#0F2A20] px-6 py-3 rounded-full text-center font-medium
+          transition-all duration-400 ease-out
+          hover:bg-[#E6C766] hover:-translate-y-[1px] hover:shadow-lg"
+        >
+          Escribir por WhatsApp
+        </a>
+
+        <a
+          href="mailto:dra.laurabotana@gmail.com"
+          className="border border-[#D4AF37]/30 px-6 py-3 rounded-full text-[#D4AF37] text-center
+          transition-all duration-400 ease-out
+          hover:border-[#D4AF37]/60 hover:bg-[#D4AF37]/10"
+        >
+          Enviar email
+        </a>
+
+      </div>
+
+    </div>
+
+    {/* MAPA */}
+    <div className="rounded-[2rem] overflow-hidden border border-[#D4AF37]/15 shadow-2xl shadow-black/20">
+
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d972.7767427634797!2d-56.19161728716588!3d-34.90600021801366!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x959f81cd53e1a5c1%3A0x3b518fa04dec32f5!2soficina%20315%2C%20Dr.%20Enrique%20Tarigo%201335%2C%2011100%20Montevideo%2C%20Departamento%20de%20Montevideo!5e0!3m2!1ses!2suy!4v1777781371140!5m2!1ses!2suy"
+        width="100%"
+        height="420"
+        style={{ border: 0 }}
+        allowFullScreen=""
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+      />
+
+    </div>
 
   </div>
 
-    </footer>
+</section>
 
+      <footer className="text-center py-10 text-[#CFC7B5]">
+        © {new Date().getFullYear()} Doldan Botana
+      </footer>
     </main>
   );
 }
