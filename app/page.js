@@ -1,5 +1,6 @@
 "use client";
 
+
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
@@ -96,7 +97,7 @@ export default function DoldanBotanaHome() {
           <div className="absolute bottom-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent" />
 
           <a href="/" className="flex items-center gap-3 group">
-            <Image src="/logo.png" alt="Doldan Botana" width={40} height={40} />
+            <Image src="/logo4.png" alt="Doldan Botana" width={40} height={40} />
 
             <div>
               <p className="font-semibold tracking-[0.18em] text-sm text-[#F5F2E9] group-hover:text-[#D4AF37] transition-colors duration-300">
@@ -419,9 +420,45 @@ export default function DoldanBotanaHome() {
 
 </section>
 
-      <footer className="text-center py-10 text-[#CFC7B5]">
-        © {new Date().getFullYear()} Doldan Botana
-      </footer>
+     
+
+<footer className="py-10 text-[#CFC7B5]">
+  <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+
+    {/* IZQUIERDA */}
+    <p className="text-xs">
+      © {new Date().getFullYear()} Doldan Botana
+    </p>
+
+    {/* DERECHA */}
+    <a
+      href="https://www.instagram.com/dra.esc.anadoldan"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group flex items-center gap-2 text-sm transition-all duration-300 hover:text-[#F5F2E9]"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="text-[#D4AF37] group-hover:scale-110 transition-transform duration-300"
+      >
+        <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+        <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+      </svg>
+
+      <span>@dra.esc.anadoldan</span>
+    </a>
+
+  </div>
+</footer>
     </main>
   );
 }

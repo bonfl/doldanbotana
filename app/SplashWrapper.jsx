@@ -26,10 +26,8 @@ export default function SplashWrapper({ children }) {
           }`}
         >
           <div className="flex flex-col items-center gap-6 animate-fade-in">
-            <Image src="/logosplash.png" alt="Doldan Botana" width={90} height={90} />
-            <p className="text-[#D4AF37] tracking-[0.25em] text-sm">
-              DOLDAN BOTANA
-            </p>
+            <Image src="/logosplash2.png" alt="Doldan Botana" width={500} height={500} />
+            
           </div>
         </div>
       )}
