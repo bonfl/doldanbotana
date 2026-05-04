@@ -186,26 +186,27 @@ export default function DoldanBotanaHome() {
           <div className="relative">
             <div className="absolute -inset-4 rounded-[2rem] border border-[#D4AF37]/10" />
 
-            <div className="relative overflow-hidden rounded-[2rem] border border-[#D4AF37]/20 shadow-2xl shadow-black/30 transition-all duration-500 ease-out hover:scale-[1.01]">
-              <Image
-                src="/law-office2.jpg"
-                alt="Estudio jurídico"
-                width={900}
-                height={650}
-                className="h-[520px] w-full object-cover"
-                priority
-              />
+            <div className="relative overflow-hidden rounded-[2rem] border border-[#D4AF37]/20 shadow-2xl shadow-black/30 transition-all duration-500 ease-out hover:scale-[1.01] h-[420px] md:h-[480px]">
 
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0F2A20] via-[#0F2A20]/60 to-transparent" />
-              <div className="absolute inset-0 bg-[#0F2A20]/25" />
+  <Image
+    src="/law-office4.jpg"
+    alt="Estudio jurídico"
+    fill
+    className="object-cover"
+    priority
+  />
 
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-  <p className="text-xs text-[#D4AF37]/80">Doldan Botana</p>
-  <p className="text-lg text-[#F5F2E9]">
-    Soluciones jurídicas y notariales con enfoque integral.
-  </p>
+  <div className="absolute inset-0 bg-gradient-to-t from-[#0F2A20] via-[#0F2A20]/60 to-transparent" />
+  <div className="absolute inset-0 bg-[#0F2A20]/25" />
+
+  <div className="absolute bottom-0 left-0 right-0 p-6">
+    <p className="text-xs text-[#D4AF37]/80">Doldan Botana</p>
+    <p className="text-lg text-[#F5F2E9]">
+      Soluciones jurídicas y notariales con enfoque integral.
+    </p>
+  </div>
+
 </div>
-            </div>
           </div>
         </div>
       </section>
